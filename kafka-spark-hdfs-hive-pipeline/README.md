@@ -1,7 +1,7 @@
 # Kafka-Spark-Hdfs-Hive Pipeline
 This is a simple pipeline application with kafka producer to get raw tweet data(json) from twitter. Then Spark Streaming will be used to extract required schema from the tweet data and dump the schema-oriented data to hdfs (`/user/hive/twitter` path location in hdfs). After this, one will create hive external table pointing to /user/hive/twitter path in hdfs. Then one can do hive query on tweet data.
 
-#### Note: System User running the apps has access to hdfs(`/user/hive/twitter`).
+#### Note: Make sure, user running the apps has access to hdfs(`/user/hive/twitter`).
 
 ## Getting Started
 
@@ -53,7 +53,7 @@ bin/spark-shell  --master [ spark://<ip>:7077 | yarn] --packages <spark-sql-kafk
 ```
 For example, with jar `spark-sql-kafka-0-10_2.11-2.3.0.jar`, package name is `org.apache.spark:spark-sql-kafka-0-10_2.11:2.3.0`
 
-* Set <kafka-broker> and <hdfs-url> in below code and copy the below code and run on the spark-shell.
+* Set `<kafka-broker>` and `<hdfs-url>` in below code and copy the below code and run on the spark-shell.
  ```sh
 import org.apache.spark.sql.SparkSession
 import spark.implicits._
@@ -76,7 +76,7 @@ query.awaitTermination()
 
 * When you think enough data is being push to hdfs(dir - `/user/hive/twitter`), stop the Kafka twitter_producer.py and spark shell (using ctrl-C or ^C).
 
-* Go to hive shell (run `hive` cmd to go to the hive shell) and run below code. This is create twitterdb database and tweets table inside hive.
+* Go to hive shell (run `hive` cmd to go to the hive shell) and run below code. This creates `twitterdb` database and `tweets` table inside hive.
 ```sh
 CREATE DATABASE TwitterDB;
 USE TwitterDB;
@@ -128,7 +128,7 @@ STORED AS TEXTFILE LOCATION '/user/hive/twitter';
 
 Now you can run any hive query on tweets. There are few query one can run.
 
-* On hive shell, check columns of `tweets` table in `twitterdb`:
+* On hive shell, check columns of `tweets` table in `twitterdb` database:
 ```sh
 DESC tweets;
 ```
@@ -138,7 +138,7 @@ DESC tweets;
 SELECT `user`.name, text, place.country FROM tweets WHERE text like "%trump%";
 ```
 
-* On hive shell, check no of records in tweets table;
+* On hive shell, check no. of records in tweets table;
 ```sh
 select count(*) as tweet_count from tweets;
 ```
