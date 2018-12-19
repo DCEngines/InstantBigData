@@ -36,6 +36,8 @@ Leave this terminal as it is.
 
 * Download the spark sql kafka jar 
 
+* If kafka client jar is not there in spark jars directory, download and put in the jars directory in spark source directory.
+
 * Submit the spark example that counts the word published by the console producer. The code for this application can be found [HERE](https://github.com/apache/spark/blob/branch-2.3/examples/src/main/scala/org/apache/spark/examples/sql/streaming/StructuredKafkaWordCount.scala):
 ```bash
 bin/spark-submit  --master [ spark://<ip>:7077 | yarn]  --jars <path-to-spark-sql-kafka-jar>  --packages <groupId:artifactId:version>  --class org.apache.spark.examples.sql.streaming.StructuredKafkaWordCount   <path-to-spark-examples-jar>  <kafka-broker> subscribe  test
