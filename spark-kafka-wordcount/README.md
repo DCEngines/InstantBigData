@@ -34,7 +34,7 @@ Leave this terminal as it is.
 
 * Go to spark directory
 
-* Download the spark sql kafka jar 
+* Download the spark sql kafka jar .For example, with spark 2.3.0 and scala 2.11, jar name is spark-sql-kafka-0-10_2.11-2.3.0.jar
 
 * If kafka client jar is not there in spark jars directory, download and put in the jars directory in spark source directory.
 
