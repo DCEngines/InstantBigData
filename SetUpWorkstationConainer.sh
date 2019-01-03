@@ -3,7 +3,7 @@
 #Constant
 Image=bigdatalabs/workstation
 ContainerRestartPolicy=always
-SwarmManagerIp=54.39.16.42
+SwarmManagerIp=10.196.0.2
 Network=ibd
 DatasetsVol=/root/datasets
 UserHome=$1
