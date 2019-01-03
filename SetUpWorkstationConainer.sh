@@ -10,7 +10,8 @@ UserHome=$1
 ContainerName=$2
 SshPort=$3
 ip=10.196.0.1
-
+ContainerHostName=$2
+ContainerHostName+=".$Network"
 if [ "$#" -ne 3 ]; then
 	echo "Incorrect number of parameters"
 	echo "Command: ./SetUpWorkstationConainer.sh <UserHomeLocation> <ContainerName> <SshPort>"
@@ -37,7 +38,7 @@ docker pull  $Image
 
 sleep 5s
 #Docker create container
-docker run -itd --restart $ContainerRestartPolicy --name $ContainerName --network $Network -v $DatasetsVol:/root/Datasets -v $UserHome:/root/Workstation -p $SshPort:22 $Image
+docker run -itd --restart $ContainerRestartPolicy --name $ContainerName --network $Network --hostname $ContainerHostName -v $DatasetsVol:/root/Datasets -v $UserHome:/root/Workstation -p $SshPort:22 $Image
 
 echo "Command to login into the container: ssh -p $SshPort root@$ip"
 echo "Password is root@123"
