@@ -3,13 +3,13 @@
 #Constant
 Image=bigdatalabs/workstation
 ContainerRestartPolicy=always
-SwarmManagerIp=10.196.0.2
+SwarmManagerIp=10.196.0.1
 Network=ibd
 DatasetsVol=/root/datasets
 UserHome=$1
 ContainerName=$2
 SshPort=$3
-ip=10.196.0.1
+ip=10.196.0.2
 ContainerHostName=$2
 ContainerHostName+=".$Network"
 if [ "$#" -ne 3 ]; then
