@@ -30,7 +30,22 @@ else
         sudo apt-get install -y docker-ce=18.06.0~ce~3-0~ubuntu
         echo "Docker Installed"
         #Docker swarm join
-        IFS=$' '; arr=( $(docker -H tcp://$SwarmManagerIp:2375 swarm join-token worker) );token=${arr[15]}
+	IFS=$' '; arr=( $(docker -H tcp://$SwarmManagerIp:2375 swarm join-token worker) );token=${arr[15]};url=${arr[16]}; ip=$(echo $ip | cut -d ":" -f 1);
+	printf "[Unit]
+Description=iptable forword Servicehost docker swarm manager old ip to new one
+before=docker.service
+
+[Service]
+ExecStart=/sbin/iptables -t nat -A OUTPUT -d $ip -j DNAT --to-destination $SwarmManagerIp
+Type=simple
+
+[Install]
+WantedBy=multi-user.target" >> /lib/systemd/system/workstationIptableSetup.service
+
+	systemctl daemon-reload
+	systemctl enable workstationIptableSetup
+	systemctl start workstationIptableSetup
+				
         docker swarm join --token "$token" $SwarmManagerIp:2377
 fi
 
